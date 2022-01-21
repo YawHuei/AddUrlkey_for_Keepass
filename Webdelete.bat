@@ -12,4 +12,4 @@ for %%I in (
 "HKLM\SOFTWARE\Mozilla\Mozilla Firefox"
 "HKLM\SOFTWARE\Apple Computer, Inc.\Safari"
 ) do (reg.exe delete "%%~I" /f)
-pause
+timeout.exe /t 5 /nobreak

@@ -4,15 +4,10 @@ net file 1>nul 2>nul && goto :run || powershell.exe -ex unrestricted -Command "S
 goto :eof
 :run
 
-rem net file 1>nul 2>nul && goto :run || powershell -ex unrestricted -Command "Start-Process -Verb RunAs -FilePath '%comspec%' -ArgumentList '/c %~fnx0 %*'"
-rem powershell.exe -windowstyle hidden -noprofile "Start-Process '%pcd%Data\run.bat' -Verb RunAs"
-
 set "ar="
 if "%processor_architecture%" == "AMD64" set "ar=64" 
 
 cd /d %~dp0
-
-call ".\CloseKeepass.bat"
 
 rem https://sourceforge.net/projects/keepass/files/KeePass 2.x/
 rem See .\Keepass\Util\AppLocator.cs
@@ -40,7 +35,6 @@ rem == Chromium = End
 :next2
 if not exist "%~dp0Data\Opera.bat" goto :next3
 rem == Opera = Begin
-if not exist "%~dp0Data\IExplore.bat" goto :next1
 reg.exe add "HKCU\Software\Clients\StartMenuInternet\OperaStable\shell\open\command" /f >nul 2>&1
 reg.exe add "HKCU\Software\Clients\StartMenuInternet\OperaStable\shell\open\command" /ve /t REG_SZ /d "\"%~dp0Data\Opera.bat\" -- \"%%1\"" /f >nul 2>&1
 rem == Opera = End
@@ -62,6 +56,4 @@ reg.exe add "HKLM\SOFTWARE\Apple Computer, Inc.\Safari" /v "BrowserExe" /t REG_S
 rem == Safari = End
 
 :next5
-call .\KeePass2.bat
-
 exit /b 0
